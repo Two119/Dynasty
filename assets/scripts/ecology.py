@@ -8,7 +8,7 @@ class EcoSytem:
         self.enemies = []
         for i in range(100):
             self.beings.append(Being([random.randint(0, 1280), random.randint(0, 720)], [random.randint(5, 10), 2, random.randint(75, 125), [0, 0, 255]]))
-        for i in range(1):
+        for i in range(3):
             self.enemies.append(Hunter([random.randint(0, 1280), random.randint(0, 720)]))
     def update(self):
         self.foodmanager.update(self)

@@ -5,7 +5,7 @@ class Hunter:
         self.color = (255, 0, 0)
         self.radius = 20
         self.dest = None
-        self.speed = round(9/6)
+        self.speed = round(10/6)
     def update(self, ecosys):
         if not hasattr(self, "circ_surf"):
             self.circ_surf = pygame.Surface((50, 50))

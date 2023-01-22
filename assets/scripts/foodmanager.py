@@ -21,7 +21,7 @@ class FoodManager:
                         pass
                     else:
                         if meal in self.food:
-                            self.food.remove(meal)
+                            self.food = [m for m in self.food if m != meal]
                             self.food.append([[random.randint(0, 1280), random.randint(0, 720)], random.randint(5, 10)])
                         being.en+=1
                 if round(being.en) >= 3 and not being.parent:
@@ -38,7 +38,7 @@ class FoodManager:
                             pass
                         else:
                             if meal in self.food:
-                                self.food.remove(meal)
+                                self.food = [m for m in self.food if m != meal]
                                 self.food.append([[random.randint(0, 1280), random.randint(0, 720)], random.randint(5, 10)])
                             being.en+=1
 

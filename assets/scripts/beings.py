@@ -19,7 +19,7 @@ class Being:
         self.en -= (0.0015/6)
 
         if self.en <= 0:
-            ecosys.beings.remove(self)
+            ecosys.beings = [b for b in ecosys.beings if b != self]
             #print("ded")
             del self
             return
