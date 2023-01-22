@@ -1,4 +1,4 @@
-import pygame, json, asyncio
+import pygame, json, asyncio, sys
 import random
 if __import__("sys").platform == "emscripten":
     import platform
