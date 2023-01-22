@@ -16,4 +16,11 @@ class EcoSytem:
                 being.update(self)
         for enemy in self.enemies:
                 enemy.update(self)
-        print(len(self.beings))
+        avg = 0
+        num = 0
+        for being in self.beings:
+            num += 1
+            avg += being.speed
+        print(avg/num)
+            
+        

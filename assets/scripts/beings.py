@@ -16,11 +16,11 @@ class Being:
         self.radius = round(self.genes[gene_dict["size"]]/10)
         self.color = self.genes[gene_dict["color"]]
     def update(self, ecosys):
-        self.en -= (0.0015/2)
+        self.en -= (0.0015/6)
 
         if self.en <= 0:
             ecosys.beings.remove(self)
-            print("ded")
+            #print("ded")
             del self
             return
         if self.dest == None:

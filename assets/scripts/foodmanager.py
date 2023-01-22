@@ -24,9 +24,9 @@ class FoodManager:
                             self.food.remove(meal)
                             self.food.append([[random.randint(0, 1280), random.randint(0, 720)], random.randint(5, 10)])
                         being.en+=1
-                if round(being.en) >= 2 and not being.parent:
+                if round(being.en) >= 3 and not being.parent:
                     if (being.speed*6) <= 10 and being.radius*10 <= 125:
-                        ecosys.beings.append(Being([random.randint(0, 1280), random.randint(0, 720)], [random.randint((being.speed*6), (being.speed*12)), 2, random.randint((being.radius*5), (being.radius*20)), [0, 0, 255]]))
+                        ecosys.beings.append(Being([random.randint(0, 1280), random.randint(0, 720)], [random.randint((being.speed*6), (being.speed*18)), 2, random.randint((being.radius*5), (being.radius*20)), [0, 0, 255]]))
                         being.en = 0.5
                 if meal[0][0] in range(being.pos[0]-(being.radius*5), being.pos[0]+(being.radius*5)) and meal[0][1] in range(being.pos[1]-(being.radius*5), being.pos[1]+(being.radius*5)):
                     being.sighted = True
