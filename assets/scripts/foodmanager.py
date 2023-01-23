@@ -3,7 +3,7 @@ from assets.scripts.beings import *
 class FoodManager:
     def __init__(self) -> None:
         self.food = []
-        while len(self.food) < 25:
+        while len(self.food) < 50:
             num = random.randint(1, 10)
             if num == 3:
                 self.food.append([[random.randint(0, 1280), random.randint(0, 720)], random.randint(5, 10)])
@@ -24,22 +24,13 @@ class FoodManager:
                             self.food = [m for m in self.food if m != meal]
                             self.food.append([[random.randint(0, 1280), random.randint(0, 720)], random.randint(5, 10)])
                         being.en+=1
-                if round(being.en) >= 3 and not being.parent:
-                    if (being.speed*6) <= 10 and being.radius*10 <= 125:
-                        ecosys.beings.append(Being([random.randint(0, 1280), random.randint(0, 720)], [random.randint((being.speed*6), (being.speed*18)), 2, random.randint((being.radius*5), (being.radius*20)), [0, 0, 255]]))
+                if round(being.en) >= 3:
+                        ecosys.beings.append(Being([being.pos[0]+being.radius*2, being.pos[1]+being.radius*2], [random.randint((being.speed*3), (being.speed*9)), 2, random.randint((being.radius*5), (being.radius*15)), [0, 0, 255]]))
                         being.en = 0.5
-                if meal[0][0] in range(being.pos[0]-(being.radius*5), being.pos[0]+(being.radius*5)) and meal[0][1] in range(being.pos[1]-(being.radius*5), being.pos[1]+(being.radius*5)):
-                    being.sighted = True
-                    being.dest = meal[0]
-            if ecosys.enemies != []:
-                for enemy in ecosys.enemies:
-                    if hasattr(being, "mask"):
-                        if meal[2].overlap(enemy.mask, (enemy.pos[0]-meal[0][0], enemy.pos[1]-meal[0][1])) == None:
-                            pass
-                        else:
-                            if meal in self.food:
-                                self.food = [m for m in self.food if m != meal]
-                                self.food.append([[random.randint(0, 1280), random.randint(0, 720)], random.randint(5, 10)])
-                            being.en+=1
+                if hasattr(being, "rect"):
+                    if self.circ_surf.get_rect(topleft=meal[0]).colliderect(being.rect):
+                        being.sighted = True
+                        being.dest = meal[0]
+
 
                             

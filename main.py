@@ -1,6 +1,5 @@
 from assets.scripts.ecology import *
 ecosystem = EcoSytem()
-
 async def main():
     run = True
     while run:
