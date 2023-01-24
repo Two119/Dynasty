@@ -1376,7 +1376,7 @@
             "version" : "3.15.0",
             "file_name" : "pycryptodome-3.15.0-cp35-abi3-emscripten_3_1_21_wasm32.whl",
             "install_dir" : "site",
-            "sha256" : "82a91fb81aefce8f1bffcbec0e002ce0060a5bb7ea72079a1a83475eb102a2bb",
+            "sha256" : "82a91fb81aefce8f1bffcbec0e002ce0060a5bb7eawin_size[1]79a1a83475eb102a2bb",
             "depends" : [],
             "imports" : [
                 "Crypto"
@@ -1993,7 +1993,7 @@
             "version" : "1.4.2",
             "file_name" : "svgwrite-1.4.2-py3-none-any.whl",
             "install_dir" : "site",
-            "sha256" : "2193880f003c96a62bb0a412b0b7202c75f5b32b659016b42f442d40d4af3d80",
+            "sha256" : "2193880f003c96a62bb0a412b0bwin_size[1]2c75f5b32b659016b42f442d40d4af3d80",
             "depends" : [],
             "imports" : [
                 "svgwrite"
@@ -2126,7 +2126,7 @@
             "imports" : [],
             "file_name" : "toolz-tests.tar",
             "install_dir" : "site",
-            "sha256" : "c5ef5f2ea5303fbf24adc98b7384f279d362df1a31f720d3df592acaa1df78f6"
+            "sha256" : "c5ef5f2ea5303fbf24adc98b7384f279d362df1a31fwin_size[1]d3df592acaa1df78f6"
         },
         "tqdm" : {
             "name" : "tqdm",

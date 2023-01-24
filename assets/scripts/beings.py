@@ -12,9 +12,11 @@ class Being:
         self.hunted = False
         self.parent = False
         self.cur_dir = None
+        self.auto = True
         self.sighted_food = False
         self.speed = round(self.genes[gene_dict["speed"]]/6)
         self.en = 0.5
+        
         self.radius = round(self.genes[gene_dict["size"]]/10)
         self.color = self.genes[gene_dict["color"]]
     def update(self, ecosys):
@@ -26,59 +28,76 @@ class Being:
             #print("ded")
             del self
             return
-        if not self.hunted:
-            if self.dest == None:
-                if self.cur_vel_frames_count:
-                    self.cur_vel_frames += 1
-                if self.cur_vel == None and self.cur_dir == None:
-                    self.cur_vel = round(random.randint(0, 10)/10)
-                    self.cur_dir = round(random.randint(-10, 10)/10)
-                    self.cur_vel_frames_count = True
-                if self.cur_vel_frames >= 60:
-                    self.cur_vel = round(random.randint(0, 10)/10)
-                    self.cur_dir = round(random.randint(-10, 10)/10)
-                    self.cur_vel_frames = 0
-            else:
-                food_exist = False
-                for meal in ecosys.foodmanager.food:
-                    if meal[0] == self.dest:
-                        food_exist = True
-                if not food_exist:
-                    self.dest = None
-                    return
-                if self.pos[0]-self.dest[0] > 0:
-                    self.pos[0]-=((self.speed*1))
+        if self.auto:
+            if not self.hunted:
+                if self.dest == None:
+                    if self.cur_vel_frames_count:
+                        self.cur_vel_frames += 1
+                    if self.cur_vel == None and self.cur_dir == None:
+                        self.cur_vel = round(random.randint(0, 10)/10)
+                        self.cur_dir = round(random.randint(-10, 10)/10)
+                        self.cur_vel_frames_count = True
+                    if self.cur_vel_frames >= 60:
+                        self.cur_vel = round(random.randint(0, 10)/10)
+                        self.cur_dir = round(random.randint(-10, 10)/10)
+                        self.cur_vel_frames = 0
                 else:
-                    self.pos[0]+=(self.speed*1)
-                if self.pos[1]-self.dest[1] > 0:
-                    self.pos[1]-=((self.speed*1))
-                else:
-                    self.pos[1]+=(self.speed*1)
+                    food_exist = False
+                    for meal in ecosys.foodmanager.food:
+                        if meal[0] == self.dest:
+                            food_exist = True
+                    if not food_exist:
+                        self.dest = None
+                        return
+                    if self.pos[0]-self.dest[0] > 0:
+                        self.pos[0]-=((self.speed*1))
+                    else:
+                        self.pos[0]+=(self.speed*1)
+                    if self.pos[1]-self.dest[1] > 0:
+                        self.pos[1]-=((self.speed*1))
+                    else:
+                        self.pos[1]+=(self.speed*1)
 
+            else:
+                
+                if self.pos[0]-self.hunter.pos[0] > 0:
+                    self.pos[0]+=((self.speed*1))
+                else:
+                    self.pos[0]-=(self.speed*1)
+                if self.pos[1]-self.hunter.pos[1] > 0:
+                    self.pos[1]+=((self.speed*1))
+                else:
+                    self.pos[1]-=(self.speed*1)
         else:
+            if pygame.key.get_pressed()[pygame.K_a] or pygame.key.get_pressed()[pygame.K_LEFT]:
+                self.pos[0]-=((self.speed*1))
+            if pygame.key.get_pressed()[pygame.K_d] or pygame.key.get_pressed()[pygame.K_RIGHT]:
+                self.pos[0]+=(self.speed*1)
+            if pygame.key.get_pressed()[pygame.K_w] or pygame.key.get_pressed()[pygame.K_UP]:
+                self.pos[1]-=((self.speed*1))
+            if pygame.key.get_pressed()[pygame.K_s] or pygame.key.get_pressed()[pygame.K_DOWN]:
+                self.pos[1]+=(self.speed*1)
             
-            if self.pos[0]-self.hunter.pos[0] > 0:
-                self.pos[0]+=((self.speed*1))
-            else:
-                self.pos[0]-=(self.speed*1)
-            if self.pos[1]-self.hunter.pos[1] > 0:
-                self.pos[1]+=((self.speed*1))
-            else:
-                self.pos[1]-=(self.speed*1)
-        self.circ_surf = pygame.Surface((self.radius*2, self.radius*2))
-        pygame.draw.circle(self.circ_surf, self.color, (self.radius, self.radius), self.radius)
-        self.circ_surf.set_colorkey((0, 0, 0))
+        if not hasattr(self, "circ_surf"):
+            if not self.auto:
+                ecosys.gen_num += 1
+            self.you_text = ecosys.font.render("YOU"+"_"+str(ecosys.gen_num), False, (255, 202, 24))
+            self.circ_surf = pygame.Surface((self.radius*2, self.radius*2))
+            pygame.draw.circle(self.circ_surf, self.color, (self.radius, self.radius), self.radius)
+            self.circ_surf.set_colorkey((0, 0, 0))
+            self.mask = pygame.mask.from_surface(self.circ_surf)
         win.blit(self.circ_surf, self.pos)
-        self.mask = pygame.mask.from_surface(self.circ_surf)
-        if self.pos[0] in [nu for nu in range(0, 1280)] and self.pos[1] in [nu_ for nu_ in range(0, 720)]:
+        if not self.auto:
+            win.blit(self.you_text, [self.pos[0], self.pos[1]-20])
+        if self.pos[0] in [nu for nu in range(0, win_size[0])] and self.pos[1] in [nu_ for nu_ in range(0, win_size[1])]:
             if self.cur_vel != None and self.dest == None:
                 self.pos[self.cur_vel]+=((self.speed*1)*self.cur_dir)
         else:
             if self.pos[0] < 0:
-                self.pos[0] = 0+self.radius*2
+                self.pos[0] = 0
             if self.pos[1] < 0:
-                self.pos[1] = 0+self.radius*2
-            if self.pos[0] > 1280:
-                self.pos[0] = 1280-self.radius*2
-            if self.pos[1] > 720:
-                self.pos[1] = 720-self.radius*2
+                self.pos[1] = 0
+            if self.pos[0] > win_size[0]:
+                self.pos[0] = win_size[0]
+            if self.pos[1] > win_size[1]:
+                self.pos[1] = win_size[1]

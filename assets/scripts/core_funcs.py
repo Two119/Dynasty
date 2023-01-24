@@ -1,4 +1,4 @@
-import pygame, json, asyncio, sys
+import pygame, sys, pygame_textinput
 import random
 if __import__("sys").platform == "emscripten":
     import platform
@@ -14,7 +14,7 @@ else:
 cursor_mask = pygame.mask.from_surface(cursor_img)
 global gene_dict
 gene_dict = {"speed":0, "energy":1, "size":2, "color":3}
-win = pygame.display.set_mode((1280, 720))
+win = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 global win_size
 win_size = [win.get_width(), win.get_height()]
 pygame.display.set_caption("Dynasty")
@@ -26,7 +26,7 @@ def center_pos(img):
     return [win_size[0]/2-(img.get_width()/2), win_size[1]/2-(img.get_height()/2)]
 def swap_color(img, col1, col2):
     pygame.transform.threshold(img ,img ,col1, (10, 10, 10), col2, 1, None, True)
-def scale_image(img, factor=4.0):
+def scale_image(img, factor=8.0):
     size = round(img.get_width() * factor), round(img.get_height() * factor)
     return pygame.transform.scale(img, size).convert()
 class SpriteSheet:

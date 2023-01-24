@@ -11,7 +11,7 @@ class Hunter:
         self.cur_vel_frames = 0
         if genes == None:
             self.radius = 15
-            self.speed = round(10/6)
+            self.speed = round(12/6)
         else:
             self.radius = round(genes[gene_dict["size"]]/10)
             self.speed = round(genes[gene_dict["speed"]]/6)
@@ -28,8 +28,8 @@ class Hunter:
             ecosys.enemies.append(Hunter([self.pos[0]+self.radius*2, self.pos[1]+self.radius*2], [random.randint(((self.speed*1)*3), ((self.speed*1)*9)), 2, random.randint((self.radius*5), (self.radius*15))]))
             self.en = 0.5
         if not hasattr(self, "circ_surf"):
-            self.circ_surf = pygame.Surface((50, 50))
-            pygame.draw.circle(self.circ_surf, self.color, (25, 25), self.radius)
+            self.circ_surf = pygame.Surface((self.radius*2, self.radius*2))
+            pygame.draw.circle(self.circ_surf, self.color, (self.radius, self.radius), self.radius)
             self.circ_surf.set_colorkey((0, 0, 0))
         if not hasattr(self, "mask"):
             self.mask = pygame.mask.from_surface(self.circ_surf)
@@ -90,15 +90,15 @@ class Hunter:
         win.blit(self.circ_surf, self.pos)
         if not hasattr(self, "mask"):
             self.mask = pygame.mask.from_surface(self.circ_surf)
-        if self.pos[0] in [nu for nu in range(0, 1280)] and self.pos[1] in [nu_ for nu_ in range(0, 720)]:
+        if self.pos[0] in [nu for nu in range(0, win_size[0])] and self.pos[1] in [nu_ for nu_ in range(0, win_size[1])]:
             if self.cur_vel != None and self.dest == None:
                 self.pos[self.cur_vel]+=((self.speed*1)*self.cur_dir)
         else:
             if self.pos[0] < 0:
-                self.pos[0] = 0+self.radius*2
+                self.pos[0] = 0
             if self.pos[1] < 0:
-                self.pos[1] = 0+self.radius*2
-            if self.pos[0] > 1280:
-                self.pos[0] = 1280-self.radius*2
-            if self.pos[1] > 720:
-                self.pos[1] = 720-self.radius*2
+                self.pos[1] = 0
+            if self.pos[0] > win_size[0]:
+                self.pos[0] = win_size[0]
+            if self.pos[1] > win_size[1]:
+                self.pos[1] = win_size[1]
