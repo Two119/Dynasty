@@ -32,6 +32,7 @@ class FoodManager:
                         if pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]:
                             new = Being([being.pos[0]+being.radius*2, being.pos[1]+being.radius*2], [random.randint((being.speed*3), (being.speed*9)), 2, random.randint((being.radius*5), (being.radius*15)), [0, 0, 255]])
                             new.auto = False
+                            new.selected = True
                             ecosys.beings.append(new)
                             being.en = 0.5
                             being.auto = True

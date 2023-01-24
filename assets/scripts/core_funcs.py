@@ -1,11 +1,12 @@
-import pygame, sys, pygame_textinput
+import pygame, sys
+from assets.scripts.pygame_textinput import *
 import random
-if __import__("sys").platform == "emscripten":
-    import platform
 pygame.init()
 global web
 web = True
 global cursor_mask
+global ui_f
+ui_f = pygame.font.Font("PrinceValiant.ttf", 48)
 global cursor_img
 if not web:
     cursor_img = pygame.image.load("assets\Spritesheets\\cursor.png")
@@ -20,6 +21,7 @@ win_size = [win.get_width(), win.get_height()]
 pygame.display.set_caption("Dynasty")
 global def_frame
 def_frame = 60
+pygame.display.set_icon(pygame.image.load("icon.png"))
 def blit_center(img):
     win.blit(img, [win_size[0]/2-(img.get_width()/2), win_size[1]/2-(img.get_height()/2)])
 def center_pos(img):

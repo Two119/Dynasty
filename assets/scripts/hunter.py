@@ -11,7 +11,7 @@ class Hunter:
         self.cur_vel_frames = 0
         if genes == None:
             self.radius = 15
-            self.speed = round(12/6)
+            self.speed = round(18/6)
         else:
             self.radius = round(genes[gene_dict["size"]]/10)
             self.speed = round(genes[gene_dict["speed"]]/6)
