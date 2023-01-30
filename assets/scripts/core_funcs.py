@@ -11,7 +11,7 @@ gene_dict = {"speed":0, "energy":1, "size":2, "color":3}
 win = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 global win_size
 win_size = [win.get_width(), win.get_height()]
-pygame.display.set_caption("Dynasty")
+pygame.display.set_caption("Dynasty - made by Two119 (https://two119.itch.io/)")
 global def_frame
 def_frame = 60
 pygame.display.set_icon(pygame.image.load("icon.png"))
