@@ -1,6 +1,7 @@
 from assets.scripts.beings import *
 from assets.scripts.button import *
 from assets.scripts.hunter import *
+from assets.scripts.checkbox import *
 from assets.scripts.foodmanager import *
 class EcoSytem:
     def __init__(self, args):
@@ -8,12 +9,15 @@ class EcoSytem:
         self.beings = []
         self.enemies = []
         self.gen_num = 0
+        random.seed(args[5])
         self.font = pygame.font.SysFont("Calibri", 20, True, False)
         self.death_text = pygame.font.Font("PrinceValiant.ttf", 90).render("Your lineage has ended!", False, (255, 202, 24))
+        self.predators = args[4]
         for i in range(args[0]):
             self.beings.append(Being([random.randint(0, win_size[0]), random.randint(0, win_size[1])], [random.randint(10, 15), 2, random.randint(75, 125), [0, 0, 255]]))
-        for i in range(args[1]):
-            self.enemies.append(Hunter([random.randint(round(win_size[0]*1/40), round(win_size[0]*3/4)), random.randint(round(win_size[1]*1/40), round(win_size[1]*3/4))]))
+        if self.predators:
+            for i in range(args[1]):
+                self.enemies.append(Hunter([random.randint(round(win_size[0]*1/40), round(win_size[0]*3/4)), random.randint(round(win_size[1]*1/40), round(win_size[1]*3/4))]))
         if args[3]:
             self.beings[random.randint(0, len(self.beings)-1)].auto = False
         self.is_interactive = args[3]
@@ -28,8 +32,9 @@ class EcoSytem:
                     being.update(self)
                     if being.auto == False:
                         player = True
-            for enemy in self.enemies:
-                    enemy.update(self)
+            if self.predators:
+                for enemy in self.enemies:
+                        enemy.update(self)
             avg = 0
             num = 0
             if len(self.beings) != 0:

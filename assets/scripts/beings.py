@@ -85,14 +85,16 @@ class Being:
         if not hasattr(self, "circ_surf"):
             if not self.auto:
                 ecosys.gen_num += 1
-            self.you_text = ecosys.font.render("YOU"+"_"+str(ecosys.gen_num), False, (255, 202, 24))
+                self.you_text = ecosys.font.render("YOU"+"_"+str(ecosys.gen_num), False, (255, 202, 24))
             self.circ_surf = pygame.Surface((self.radius*2, self.radius*2))
             pygame.draw.circle(self.circ_surf, self.color, (self.radius, self.radius), self.radius)
             self.circ_surf.set_colorkey((0, 0, 0))
             self.mask = pygame.mask.from_surface(self.circ_surf)
         win.blit(self.circ_surf, self.pos)
-        if not self.auto:
+        if hasattr(self, "you_text"):
             win.blit(self.you_text, [self.pos[0], self.pos[1]-20])
+        if not self.auto:
+           
             win.blit(ui_f.render("Energy"+": "+str(self.en), False, (255, 202, 24)), [100, 50])
             if round(self.en) >= 3:
                 win.blit(ui_f.render("You can reproduce!", False, (255, 202, 24)), [100, 150])

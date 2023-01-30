@@ -4,15 +4,8 @@ import random
 pygame.init()
 global web
 web = True
-global cursor_mask
 global ui_f
 ui_f = pygame.font.Font("PrinceValiant.ttf", 48)
-global cursor_img
-if not web:
-    cursor_img = pygame.image.load("assets\Spritesheets\\cursor.png")
-else:
-    cursor_img = pygame.image.load("assets/Spritesheets//cursor.png")
-cursor_mask = pygame.mask.from_surface(cursor_img)
 global gene_dict
 gene_dict = {"speed":0, "energy":1, "size":2, "color":3}
 win = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
